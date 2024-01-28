@@ -1,6 +1,7 @@
 import cv2
 import os
 import numpy as np
+from config import INPUT_DIR, OUTPUT_DIR, OUTPUT_LABEL
 
 
 def apply_augmentations(image):
@@ -70,8 +71,8 @@ def save_images(images, base_filename, output_dir):
         cv2.imwrite(filepath, img)
 
         labelname = f"{base_filename}.txt"
-        labelpath = os.path.join(output_label, labelname)
-        newlabelname = output_label + f"{base_filename}_{i}.txt"
+        labelpath = os.path.join(OUTPUT_LABEL, labelname)
+        newlabelname = OUTPUT_LABEL + f"{base_filename}_{i}.txt"
 
         try:
             f = open(labelpath, 'r')
@@ -87,7 +88,7 @@ def save_images(images, base_filename, output_dir):
             continue
 
 
-# 이미지를 읽고, 증강하고, 저장
+# 이미지를 읽고, 증강하고, 저장하는 메인 함수
 def process_and_save_images(input_dir, output_dir):
     for filename in os.listdir(input_dir):
         if filename.lower().endswith(('.png', '.jpg', '.jpeg')):
@@ -99,11 +100,9 @@ def process_and_save_images(input_dir, output_dir):
             save_images(augmented_images, base_filename, output_dir)
 
 
-input_folder = 'C:/Users/CAU/Desktop/Alert/yolov8/train/images/'
-output_folder = 'C:/Users/CAU/Desktop/Alert/yolov8/train/images/'
-output_label = 'C:/Users/CAU/Desktop/Alert/yolov8/train/labels/'
+# 출력 폴더가 없으면 생성
+if not os.path.exists(OUTPUT_DIR):
+    os.makedirs(OUTPUT_DIR)
 
-if not os.path.exists(output_folder):
-    os.makedirs(output_folder)
-
-process_and_save_images(input_folder, output_folder)
+# 이미지 처리 함수 호출
+process_and_save_images(INPUT_DIR, OUTPUT_DIR)

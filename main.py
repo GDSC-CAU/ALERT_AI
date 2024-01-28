@@ -1,13 +1,13 @@
 from ultralytics import YOLO as yolo
+from config import YOLO_PATH, YAML_PATH
 import os
 
-#os.environ['KMP_DUPLICATE_LIB_OK']='True'
+# os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 if __name__ == '__main__':
-    eight='yolov8n.pt'
-    version='C:/Users/CAU/Desktop/Alert/runs/detect/train2/weights/best.pt'
+    eight = 'yolov8n.pt'
+    version = YOLO_PATH
     model = yolo(eight)
-    model.train(data='C:/Users/CAU/Desktop/Alert/yolov8/data.yaml', epochs=20, workers=0)
-    #model.predict(source='C:/Users/CAU/Desktop/Alert/yolov8/valid/images', save=True, conf=0.5, show=True)
+    model.train(data=YAML_PATH, epochs=20, workers=0)
 
     print('done')
