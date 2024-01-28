@@ -22,6 +22,7 @@ def check_animal_in_image(image_data, animal_name):
         fp.write(content)
 
     results = model(UPLOAD_DIR + filename)
+    os.remove(UPLOAD_DIR + filename)
     for result in results:
         for c in result.boxes.cls:
             if model.names[int(c)] == animal_name:
